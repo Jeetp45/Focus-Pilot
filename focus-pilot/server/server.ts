@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express';
 import cors from 'cors';
 import path from 'path';
 import dbConnect from './dbConnect.ts';
-import taskRoutes from './routes/taskRoutes.ts';
+import taskRoute from './routes/taskRoutes.ts';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(cors());
 
-app.use('/api/tasks', taskRoutes);
+app.use('/api/tasks', taskRoute);
 
 // SERVE STATIC FILES (React Frontend)
 const __dirname = path.resolve(); // Use path.resolve for ES modules
