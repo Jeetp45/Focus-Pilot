@@ -3,6 +3,7 @@ import { taskController } from '../../src/types';
 
 const TaskController = {} as taskController;
 
+//Retrieve all tasks from the database
 TaskController.getTasks = async (req, res, next) => {
   try {
     const tasks = await TaskModel.find().sort({ createdAt: -1 });
@@ -18,6 +19,7 @@ TaskController.getTasks = async (req, res, next) => {
   }
 };
 
+//Make a new task in the database
 TaskController.createTask = async (req, res, next) => {
   console.log('BODY:', req.body);
   const { title } = req.body;
@@ -30,6 +32,39 @@ TaskController.createTask = async (req, res, next) => {
     return next({
       log: `Error in TaskController.createTask: ${error}`,
       message: { err: 'An error occurred while creating task.' },
+      status: 500,
+    });
+  }
+};
+
+//Toggle task after completion
+TaskController.toggleTask = async (req, res, next) => {
+  const id = req.params.id;
+  try {
+    const task = await TaskModel.findById(id);
+    if (!task) return res.status(400).send('No task found');
+    task.completed = !task.completed;
+    await task.save();
+    res.locals.toggledTask = task;
+    return next();
+  } catch (error) {
+    return next({
+      log: `Error in TaskController.toggleTask: ${error}`,
+      message: { err: 'An error occurred while toggling task.' },
+      status: 500,
+    });
+  }
+};
+
+TaskController.deleteTask = async (req, res, next) => {
+  const id = req.params.id;
+  try {
+    const deletedTask = await TaskModel.findByIdAndDelete(id);
+    if (!deletedTask) return res.status(400).send('No task was found');
+  } catch (error) {
+    return next({
+      log: `Error in TaskController.deleteTask: ${error}`,
+      message: { err: 'An error occurred while deleting task.' },
       status: 500,
     });
   }

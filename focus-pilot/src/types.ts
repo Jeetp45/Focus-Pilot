@@ -19,3 +19,9 @@ export type taskController = {
   toggleTask: (req: Request, res: Response, next: NextFunction) => void;
   deleteTask: (req: Request, res: Response, next: NextFunction) => void;
 };
+
+export type authController = {
+  registerUser: (req: Request, res: Response, next: NextFunction) => void;
+  loginUser: (req: Request, res: Response, next: NextFunction) => void;
+  authenticateUser: (req: Request, res: Response, next: NextFunction) => void;
+};
