@@ -1,5 +1,8 @@
 import type { Request, Response, NextFunction } from 'express';
 
+interface AuthRequest extends Request {
+  user?: { id: string };
+}
 export interface WidgetProps {
   title: string;
   value: string;
@@ -23,5 +26,9 @@ export type taskController = {
 export type authController = {
   registerUser: (req: Request, res: Response, next: NextFunction) => void;
   loginUser: (req: Request, res: Response, next: NextFunction) => void;
-  authenticateUser: (req: Request, res: Response, next: NextFunction) => void;
+  authenticateUser: (
+    req: AuthRequest,
+    res: Response,
+    next: NextFunction
+  ) => void;
 };

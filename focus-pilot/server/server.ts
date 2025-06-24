@@ -3,6 +3,8 @@ import cors from 'cors';
 import path from 'path';
 import dbConnect from './dbConnect.ts';
 import taskRoute from './routes/taskRoutes.ts';
+import authRoute from './routes/authRoutes.ts';
+import AuthController from './controllers/authController.ts';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -10,7 +12,8 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(cors());
 
-app.use('/api/tasks', taskRoute);
+app.use('/api/tasks', AuthController.authenticateUser, taskRoute);
+app.use('/api/auth', authRoute);
 
 // SERVE STATIC FILES (React Frontend)
 const __dirname = path.resolve(); // Use path.resolve for ES modules
