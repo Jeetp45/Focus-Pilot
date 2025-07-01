@@ -5,8 +5,11 @@ const TaskController = {} as taskController;
 
 //Retrieve all tasks from the database
 TaskController.getTasks = async (req, res, next) => {
+  const userId = res.locals.user.id;
   try {
-    const tasks = await TaskModel.find().sort({ createdAt: -1 });
+    const tasks = await TaskModel.find({ user: userId }).sort({
+      createdAt: -1,
+    });
     if (!tasks) return res.status(400).send('No tasks found.');
     res.locals.tasks = tasks;
     return next();
@@ -23,9 +26,10 @@ TaskController.getTasks = async (req, res, next) => {
 TaskController.createTask = async (req, res, next) => {
   console.log('BODY:', req.body);
   const { title } = req.body;
-  if (!title) return res.status(400).send('No title found');
+  const userId = res.locals.user.id;
+  if (!title || !userId) return res.status(400).send('Missing data');
   try {
-    const newTask = await TaskModel.create({ title });
+    const newTask = await TaskModel.create({ title, user: userId });
     res.locals.newTask = newTask;
     return next();
   } catch (error) {
