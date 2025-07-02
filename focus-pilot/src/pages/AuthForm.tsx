@@ -34,12 +34,12 @@ const AuthForm = () => {
   };
 
   return (
-    <div className='flex min-h-screen items-center justify-center bg-gray-100 dark:bg-gray-900'>
+    <div className='flex min-h-screen items-center justify-center bg-gray-500 dark:bg-gray-900'>
       <form
         onSubmit={handleSubmit}
-        className='bg-white dark:bg-gray-800 p-8 rounded-xl shadow-md w-full max-w-sm space-y-4'
+        className='bg-white dark:bg-gray-800 p-8 rounded-xl shadow-md w-full max-w-2xl space-y-12'
       >
-        <h2 className='text-2xl font-bold text-center text-gray-800 dark:text-white'>
+        <h2 className='text-3xl font-bold text-center text-gray-800 dark:text-white'>
           {isRegistering ? 'Register to FocusPilot' : 'Login to FocusPilot'}
         </h2>
         {isRegistering && (
@@ -64,12 +64,12 @@ const AuthForm = () => {
           placeholder='Password'
         />
         <button
-          className='w-full bg-blue-600 hover:bg-blue-700 hover:cursor-pointer text-white font-semibold py-2 px-4 rounded-md transition'
+          className='w-full bg-blue-600 hover:bg-blue-700 hover:cursor-pointer text-white text-lg font-semibold py-2 px-4 rounded-md transition'
           type='submit'
         >
           {isRegistering ? 'Register' : 'Login'}
         </button>
-        <p className='text-center text-sm text-gray-600 dark:text-gray-400'>
+        <p className='text-center text-md text-gray-600 dark:text-gray-400'>
           {isRegistering
             ? 'Already have an account?'
             : "Don't have an account?"}{' '}
