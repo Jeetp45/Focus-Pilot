@@ -8,6 +8,9 @@ const Sidebar = () => {
     <aside className='bg-gray-900 text-white w-64 h-full p-4 hidden md:block'>
       <h2 className='text-2xl font-bold mb-6'>FocusPilot</h2>
       <nav className='flex flex-col gap-4'>
+        <NavLink to='/login' className={navLinkClass}>
+          User Login
+        </NavLink>
         <NavLink to='/' className={navLinkClass}>
           Dashboard
         </NavLink>
